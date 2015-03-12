@@ -4,9 +4,9 @@ import time
 
 # remove these
 import math
-from ASG.TidyCode.coord_WP_dist import get_coords
+from ASG.coord_WP_dist import get_coords
 coords = get_coords("/home/andy/ardupilot/ArduPlane/ASG_WP.txt")
-Vmin = FetchParam(['ARSPD_FBW_MIN'])[0]*0.8
+Vmin = FetchParam(['ARSPD_FBW_MIN'])[0]*0.5
 
 # Define an exception that specifically requests panic mode
 class PanicPanic(Exception):pass
@@ -27,7 +27,6 @@ def Check(VL=Vmin,pL=20,pL_=-20,rL=30,vzL_=-20,aL=5): #correct PL_!!
 	r = abs(v.attitude.roll)	# use absolute value
 	a = RelativeAlt()
 	V = v.airspeed
-	print(v.wind.speed)
 	[latT,lonT,z] = coords[v.commands.next]
 
 	AttNames = ['airspeed','pitch (+ve)','pitch -ve','roll','velocity (z)','altitude']

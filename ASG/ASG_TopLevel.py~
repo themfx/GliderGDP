@@ -11,7 +11,7 @@ def Function1():
 	try:
 		# Scripts to be run go here
 		print("Attempting to import i_r_s_v4")
-		from ASG.TidyCode.inflight_run_script_v4 import MainRun
+		from ASG.inflight_run_script_v4 import MainRun
 		print("Success, running MainRun()")
 		MainRun()
 

@@ -10,7 +10,7 @@ import sys				# for exception handling
 import threading
 from droneapi.lib import VehicleMode
 
-from ASG.TidyCode.inflight_run_script_v4 import LoopMainRun
+from ASG.inflight_run_script_v4 import LoopMainRun
 from ASG.ArduParam import ResetAll, SetParam
 import time
 
@@ -27,11 +27,11 @@ class SingleFunction(threading.Thread):
 		except PanicMode.PanicPanic, msg:
 			print(msg)
 			ExcQ.put(sys.exc_info())
-			raise#return None
+			raise
 		except:
 			print("Unrecognised failure")
 			ExcQ.put(sys.exc_info())
-			raise#return None
+			raise
 		print("SingleFunction ID%d ran successfully" %self.ID)
 		pass
 
@@ -60,8 +60,14 @@ def Run1():
 	Kill.append(kSoar)
 	Threads.append(tSoar)
 
+	count = 2.0
 	while v.mode.name=='LOITER':
-		SetParam(['MODE','THR_MAX'],['AUTO',0])
+		if count%2.0 < 0.2:
+			SetParam(['MODE','THR_MAX'],['AUTO',0])
+			count = 0.2
+		else:
+			count += 0.2
+		time.sleep(0.2)
 
 	# Start the threads
 	for thread in Threads:

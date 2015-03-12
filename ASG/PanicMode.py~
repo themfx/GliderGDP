@@ -4,9 +4,9 @@ import time
 
 # remove these
 import math
-from ASG.TidyCode.coord_WP_dist import get_coords
+from ASG.coord_WP_dist import get_coords
 coords = get_coords("/home/andy/ardupilot/ArduPlane/ASG_WP.txt")
-Vmin = FetchParam(['ARSPD_FBW_MIN'])[0]*0.8
+Vmin = FetchParam(['ARSPD_FBW_MIN'])[0]*0.5
 
 # Define an exception that specifically requests panic mode
 class PanicPanic(Exception):pass

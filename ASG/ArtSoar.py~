@@ -1,7 +1,7 @@
 from __main__ import v, SoarQ
 from ArduParam import *
 from droneapi.lib import Location
-from ASG.TidyCode.coord_WP_dist import get_coords
+from ASG.coord_WP_dist import get_coords
 #VEHICLE MODE
 import math,time
 
