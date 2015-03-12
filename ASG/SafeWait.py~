@@ -1,0 +1,16 @@
+from time import time
+
+def s(t=2):
+	start = time()
+	now   = time()
+	while (now-start) < t:
+		now = time()
+	pass
+
+def ms(t):
+	s(t/1000.)
+	pass
+
+def minute(t):
+	s(t*60)
+	pass

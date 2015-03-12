@@ -1,0 +1,12 @@
+from __main__ import v
+from math import cos,sin,sqrt
+
+def WindNow():
+	GSP_ = [0,0,0]
+	GPS_[0] = v.velocity[0] * sin(v.attitude.yaw)
+	GPS_[1] = v.velocity[1] * cos(v.attitude.yaw)
+	GPS_[2] = v.velocity[2] * cos(v.attitude.pitch)
+
+	GPS = sqrt(sum([vi**2 for vi in GPS_]))
+	
+	AS  = v.airspeed

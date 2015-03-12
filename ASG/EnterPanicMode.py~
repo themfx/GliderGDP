@@ -1,0 +1,10 @@
+from ArduParam import * # use FetchParam and ChangeParam
+
+# First change the mode to RTL
+ChangeParam(['MODE'],['RTL'])
+
+# Reinstate orginal parameters
+# ???
+print("EnterPanicMode complete")
+
+pass
