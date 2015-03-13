@@ -11,11 +11,24 @@ except:
 	raise
 print("Vehicle connection established")
 
+# Download waypoints and set home altitude
+print("Downloading waypoints and setting home altitude correction")
+try:
+	from __main__ import v
+	v.commands.download()
+	print("Waiting for download to verify")
+	v.commands.wait_valid
+	sleep(2) 	# just in case, avoids error
+	__main__.AltC = v.commands[0].z
+except:
+	print("Failed in download of waypoints, raising exception")
+	raise
+print("Waypoint download complete, __main__.AltC set")
 
 # Ensure ASG modules can be loaded
 print("Checking ASG module directory can be loaded")
-import sys
-dir_ASG = '/home/andy/sitl'	# module location
+import sys,os
+dir_ASG = os.getcwd()+'/GliderGDP' #'/home/andy/sitl'	# module location
 
 # If it's not already in sys.path, add it
 if not any(dir_ASG in s for s in sys.path):
