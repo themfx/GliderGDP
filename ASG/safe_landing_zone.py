@@ -2,6 +2,8 @@
 # distance of a safe landing zone (WP)
 # Laurence Jackson, lj8g10
 
+from coord_WP_dist import *
+from __main__ import v
 
 """Modified from Wilhelm's code, with alt removed"""
 

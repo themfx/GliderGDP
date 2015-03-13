@@ -7,7 +7,7 @@
 #           hB is next WP altitude
 #           dAB is distance to next WP
 
-from active_aircraft import * #!# aju
+from active_aircraft import * #!# aju - tidy
 import ASG.ArtSoar
 from __main__ import SoarQ
 
@@ -50,19 +50,14 @@ def inflight_stage(hA,hB,dAB,LD_ratio):
         
         print ("No additional alt required to reach next WP")
         print ("No additional energy required to reach next WP")
-        
-#--------------------------------------------------------------------#
-
-
+	pass
 
 def flight_balance(z,d_WP,WP_target,N,h_route,d_route,LD_ratio):
-
-
     for i in range(N):
         if i+1 == WP_target and d_WP != 0:
             print ("\n\nYou are at Stage %d: WP%d -> WP%d" %(i,i,i+1))
-            print ("Distance to WP%d is %.3f m (@ alt=%.1fm)" %(i+1,d_WP,h_route[i])) #!AJU
-            inflight_stage(z,h_route[i],d_WP,LD_ratio)
+            print ("Distance to WP%d is %.3f m (@ alt=%.1fm)" %(i+1,d_WP,h_route[i+1]))
+            inflight_stage(z,h_route[i+1],d_WP,LD_ratio)
         elif i+1 == WP_target and d_WP == 0 and WP_target+1 < N+1:
             print ("You are at WP%d" %(WP_target))
             print ("Distance to WP%d is %.3f m" %(WP_target+1,d_route[i]))

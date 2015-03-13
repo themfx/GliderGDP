@@ -13,6 +13,7 @@ from droneapi.lib import VehicleMode
 from ASG.inflight_run_script_v4 import LoopMainRun
 from ASG.ArduParam import ResetAll, SetParam
 import time
+from ASG.ModernCoords import GetWPs
 
 class SingleFunction(threading.Thread):
 	def __init__(self,ID,function,kill):
@@ -32,7 +33,7 @@ class SingleFunction(threading.Thread):
 			print("Unrecognised failure")
 			ExcQ.put(sys.exc_info())
 			raise
-		print("SingleFunction ID%d ran successfully" %self.ID)
+		print("SingleFunction ID%d completed successfully" %self.ID)
 		pass
 
 # Create queues to communicate exceptions between functions

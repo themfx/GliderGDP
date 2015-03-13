@@ -1,12 +1,8 @@
 # Import necessary modules
 from droneapi.lib import VehicleMode
-
-# Assume we are already connected to a vehicle (at the highest
-#  level) and this has been assigned to __main__.v
 from __main__ import v,AltC
 
 def FetchParam(par):
-	global v
 	"""
 	Take a list of parameters (par) and returns a corresponding
 	list of values from the vehicle."""
@@ -21,7 +17,6 @@ def FetchParam(par):
 	return val
 
 def SetMode(mode):
-	global v
 	"""
 	Sets a new mode for the vehicle (e.g. MANUAL, AUTO, RTL).
 	Function returns nothing."""
@@ -32,7 +27,6 @@ def SetMode(mode):
 	pass
 
 def SetParam(par,val):
-	global v
 	"""
 	Sets a list of parameters (par) to a corresponding list of
 	new values (val). Function returns nothing."""
@@ -75,17 +69,17 @@ def CheckParam(par,val):
 	parW = []				# list of params not correct
 	valW = []				# list of values to be corrected
 
-	# Iterate through each parameter, checking they have been
+	# iterate through each parameter, checking they have been
 	#  changed correctly.
 	for (p_,v_,vC_) in zip(par,val,valC):
 		if p_!='MODE' and v_!=vC_: # skips mode changes
 			parW.append(p_)
 			valW.append(v_)
 	
-	# Return unchanged params or True
+	# return unchanged params or True
 	if len(parW) > 0:
                 return [parW, valW]
-	return True 	# Everything okay
+	return True 	# everything okay
 
 def RelativeAlt():
 	"""
@@ -95,3 +89,4 @@ def RelativeAlt():
 def ResetAll():
 	# for now, we're only changing THR_MAX, so keep it simple
 	SetParam(['THR_MAX'],[75])
+	pass

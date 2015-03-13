@@ -5,7 +5,8 @@
 import math
 import time
 from inflight_balance_calculation_v5 import inflight_stage,flight_balance
-from coord_WP_dist import get_coords,WP_dist
+from coord_WP_dist import WP_dist #get_coords,
+from ModernCoords import GetWPs
 from wind_consideration_v2 import Opt_LD
 
 """UAV/glider flight parameters"""
@@ -22,9 +23,9 @@ from active_aircraft import C    #Constant
 from __main__ import v
 from ASG.ArduParam import RelativeAlt
 
-coords = get_coords("/home/andy/ardupilot/ArduPlane/ASG_WP.txt")
+coords = GetWPs() #get_coords("/home/andy/ardupilot/ArduPlane/ASG_WP.txt")
 
-def LoopMainRun(alert,t=1):
+def LoopMainRun(alert,t=3):
 	while alert.empty():
 		start = time.time()
 		MainRun()
@@ -32,6 +33,7 @@ def LoopMainRun(alert,t=1):
 		if wait>0:
 			time.sleep(wait)
 	print("LoopMainRun detected an alarm, terminating")
+	pass
 
 def MainRun():
 
@@ -61,8 +63,8 @@ def MainRun():
 
     # Flight Balance is calculated #
 
-    LD_ratio = 7#Opt_LD(Vw,Vs,A,B,C)
+    LD_ratio = Opt_LD(Vw,Vs,A,B,C)
 
     flight_balance(z,d_WP,WP_target,N,h_route,d_route,LD_ratio)
 
-    pass #end main run
+    pass #end MainRun()
