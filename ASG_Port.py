@@ -25,14 +25,10 @@ except:
 	raise
 print("Waypoint download complete, __main__.AltC set")
 
-
 # Ensure ASG modules can be loaded
 print("Checking ASG module directory can be loaded")
 import sys,os
-
-#dir_ASG = '/home/andy/ardupilot/ArduPlane/GliderGDP'	# module location
-# Need to automate the above, but how?
-dir_ASG = os.getcwd()+'/GliderGDP'		# need to check this onboard!!!
+dir_ASG = os.getcwd()+'/GliderGDP'		# seems to work
 
 # If it's not already in sys.path, add it
 if not any(dir_ASG in s for s in sys.path):
@@ -43,7 +39,7 @@ else:
 	print("ASG directory already exists")
 
 # Import the relevant module
-from ASG import ASG_FT1 #UAVTest,SafeWait
+from ASG import ASG_FT1
 print("Imported required run module, executing in 2s")
 sleep(2)
 ASG_FT1.Run1()

@@ -1,13 +1,13 @@
-#One script to rule them all...
-#Laurence Jackson, lj8g10
-# 30/01/2015 import data from active_aircraft.py
+# One script to rule them all...
+# Laurence Jackson, lj8g10
+# 30/01/2015
 
 import math
 import time
 from inflight_balance_calculation_v5 import inflight_stage,flight_balance
-from coord_WP_dist import WP_dist #get_coords,
+from coord_WP_dist import WP_dist
 from ModernCoords import GetWPs
-from wind_consideration_v2 import Opt_LD
+from wind_consideration_v2 import Current_LD
 
 """UAV/glider flight parameters"""
 from active_aircraft import m    # UAV/glider mass
@@ -23,7 +23,7 @@ from active_aircraft import C    #Constant
 from __main__ import v
 from ASG.ArduParam import RelativeAlt
 
-coords = GetWPs() #get_coords("/home/andy/ardupilot/ArduPlane/ASG_WP.txt")
+coords = GetWPs()
 
 def LoopMainRun(alert,t=3):
 	while alert.empty():
@@ -48,7 +48,7 @@ def MainRun():
 
     # Values Read from the UAV autopilot while flying #
 
-    Vs = 0                        #vertical air mass velocity, +ve defined as rising air mass
+    Vs = 0                        #vertical air mass velocity, +ve defined as sinking air mass
     Vw =  0                       #wind velocity component parallel to flight direction, +ve defined as head wind
     z = RelativeAlt()                         #current altitude                   
     WP_target = v.commands.next                 #next waypoint reference number
@@ -63,7 +63,7 @@ def MainRun():
 
     # Flight Balance is calculated #
 
-    LD_ratio = Opt_LD(Vw,Vs,A,B,C)
+    LD_ratio = Current_LD(v.airspeed,Vw,Vs,A,B,C)
 
     flight_balance(z,d_WP,WP_target,N,h_route,d_route,LD_ratio)
 

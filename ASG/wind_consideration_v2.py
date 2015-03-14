@@ -5,29 +5,26 @@
 import math
 
 #This code uses the glide polar for the UAV (obtained through
-#wind tunnel testing) to calculate optimal L/D ratio accounting
+#wind tunnel testing) to calculate current L/D ratio accounting
 #for the effects of head/tailwinds and sink/rising air mass.
 
 #The solutions/equations used below were obtained analytically.
 
 #Note: positive Vw is defined as a headwind
-#      positive Vs is defined as a rising air mass
+#      positive Vs is defined as a sinking air mass
 
-def Opt_LD(Vw,Vs,A,B,C):         #optimal L/D is calculated as a function of wind velocity
+def Current_LD(V,Vw,Vs,A,B,C): 
 
     ##A,B,C are the glide polar Coefficients (quadratic relation)##
 
-    V = ((2.*A*Vw)+ math.sqrt(((2.*A*Vw)**2.)+(4.*A*((B*Vw)+C-Vs))))/(2.*A)  #airspeed (at optimal L/D)
+    Vv = (A*(V**2.))+(B*V)+C                 #sink rate as a function of airspeed
 
-    Vv = (A*(V**2.))+(B*V)+C                 #sink rate (at optimal L/D)
+    grad = (Vv-Vs)/(V-Vw)               #gradient of line representing glide angle
 
-    grad = (Vv-Vs)/(V-Vw)                 #gradient of tangent line (= L/D optimal)
+    LD_actual = 1/math.atan(-1.*grad)
 
-    LD_opt = grad
+    return LD_actual
 
-    return LD_opt
-
-#Optimal L/D is output, V is the required airspeed to achieve this optimal L/D
 
 
 

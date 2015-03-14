@@ -4,6 +4,7 @@
 
 from coord_WP_dist import *
 from __main__ import v
+from active_aircraft import LD_fixed
 
 """Modified from Wilhelm's code, with alt removed"""
 
@@ -67,7 +68,7 @@ def safety_check(cs_alt,d_safe):
     safe_alt=[]
 
     for i in range(len(d_safe)):
-        h_ideal = (C_D/C_L)*d_safe[i]
+        h_ideal = (1/LD_fixed)*d_safe[i]
         safe_alt.append(h_ideal)
 
     #Check individual safety zones 
