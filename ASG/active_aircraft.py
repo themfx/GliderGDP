@@ -22,3 +22,6 @@ SF = 0.9		# Safety Factor
 #global
 g = 9.81		# gravitational acceleration [m/s^2]
 
+# Wind info
+wVel = 0.0		# current wind velocity
+wDir = 0.0		# current wind direction

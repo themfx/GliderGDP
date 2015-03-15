@@ -18,7 +18,7 @@ try:
 	v.commands.download()
 	print("Waiting for download to verify")
 	v.commands.wait_valid
-	sleep(2) 	# just in case, avoids error
+	sleep(5) 	# just in case, avoids error
 	__main__.AltC = v.commands[0].z
 except:
 	print("Failed in download of waypoints, raising exception")

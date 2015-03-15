@@ -1,0 +1,4 @@
+List of things that need developing in this repo:
+[ ] Finalise boot script, put it in 'Tools' and include explanatory txt file
+[ ] Create DEV folder with code not being initially tested (for future years)
+[ ] wind calc

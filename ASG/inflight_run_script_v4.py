@@ -21,7 +21,8 @@ from active_aircraft import C    #Constant
 # Above could be acheived by "from active_aircraft import *" but didn't do it for clarity
 
 from __main__ import v
-from ASG.ArduParam import RelativeAlt
+from ArduParam import RelativeAlt
+from WindEst import SingleWind
 
 coords = GetWPs()
 
@@ -49,7 +50,7 @@ def MainRun():
     # Values Read from the UAV autopilot while flying #
 
     Vs = 0                        #vertical air mass velocity, +ve defined as sinking air mass
-    Vw =  0                       #wind velocity component parallel to flight direction, +ve defined as head wind
+    Vw =  SingleWind()                       #wind velocity component parallel to flight direction, +ve defined as head wind
     z = RelativeAlt()                         #current altitude                   
     WP_target = v.commands.next                 #next waypoint reference number
 	
