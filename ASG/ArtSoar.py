@@ -2,11 +2,12 @@
 from __main__ import v, SoarQ
 from ArduParam import *
 from droneapi.lib import Location
-#from ASG.coord_WP_dist import get_coords
+from coord_WP_dist import WP_dist#,get_coords
 from ModernCoords import GetWPs
 import math,time
+from MissionTracking import printASG
 
-coords = GetWPs() #get_coords("/home/andy/ardupilot/ArduPlane/ASG_WP.txt")
+coords = GetWPs()
 
 def Wait(alert,tSoar=2,tHead=0.4):
 	"""
@@ -33,7 +34,10 @@ def Wait(alert,tSoar=2,tHead=0.4):
 					v.commands.goto(Location(lat,lon,alt))
 		elif (Soar==True) and (FetchParam(['THR_MAX'])[0] != 0) and (RelativeAlt()>=alt):
 			t = tHead
-			if InHeading():
+			NextWP_ = v.commands[v.commands.next]
+			NextWP = [NextWP_.x,NextWP_.y,NextWP_.z]
+			WPinLoiter = WP_dist([[lat,lon,alt],NextWP])[0][0] < 1.2*FetchParam(['WP_LOITER_RAD'])[0]
+			if InHeading() or WPinLoiter:
 				SetParam(['MODE','THR_MAX'],['AUTO',0])
 				alt = 0
 				t = tSoar
@@ -65,7 +69,7 @@ def InHeading(tol=20):
 	else:
 		if (tan_(gc)<tan_(hL)) and (tan_(gc)>tan_(hU)):
 			return False
-	print("Good heading identified")
+	printASG("Good heading identified")
 	return True
 
 def tan_(a):

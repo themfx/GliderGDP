@@ -1,6 +1,7 @@
 # Import necessary modules
 from droneapi.lib import VehicleMode
 from __main__ import v,AltC
+from MissionTracking import printASG
 
 def FetchParam(par):
 	"""
@@ -57,7 +58,7 @@ def ChangeParam(par,val,checks=3):
 		v.flush()
 		check = CheckParam(check[0],check[1])
 	if check!=True:
-		print("Detected non-matching params: %s" %check[0]) 
+		printASG("Detected non-matching params: %s" %check[0]) 
 		return check
 	return True 
 

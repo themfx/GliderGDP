@@ -1,6 +1,7 @@
 from ArduParam import * # use FetchParam and ChangeParam
 from __main__ import v
 import time
+from MissionTracking import printASG
 
 # remove these
 import math
@@ -17,18 +18,18 @@ def Enter():
 	# First change the mode to RTL
 	ChangeParam(['MODE'],['RTL'])
 	ResetAll()
-	print("EnterPanicMode complete")
+	printASG("EnterPanicMode complete")
 	pass
 
 # Check the current state, do we need to invoke a panic?
-def Check(VL=Vmin,pL=15,pL_=-10,rL=30,vzL_=-20,aL=100,aL_=5): #correct PL_!!
+def Check(VL=Vmin,pL=15,pL_=-10,rL=30,vzL_=-20,aL=112,aL_=5): #correct PL_!!
 	# Get current vehicle data
 	p = v.attitude.pitch
 	vz= v.velocity[2] 			# catch sharp dives
 	r = abs(v.attitude.roll)	# use absolute value
 	a = RelativeAlt()
 	V = v.airspeed
-	[latT,lonT,z] = coords[v.commands.next] 	# we only care about z here
+	#[latT,lonT,z] = coords[v.commands.next] 	# we only care about z here - why do we :/
 
 	AttNames = ['airspeed','pitch (+ve)','pitch (-ve)','roll','velocity (z)','alt (max)','alt (min)']
 	AttCurrent = [-V,p,-p,r,-vz,a,-a]
@@ -37,7 +38,7 @@ def Check(VL=Vmin,pL=15,pL_=-10,rL=30,vzL_=-20,aL=100,aL_=5): #correct PL_!!
 	for (name,cur,lim) in zip(AttNames,AttCurrent,AttLimit):
 		if cur>lim:
 			raise PanicPanic, "Outside operation: %s=%.2f" %(name,cur)
-	print("Panic check is all okay") 	# may supress this
+	printASG("Panic check is all okay") 	# may supress this
 	pass
 
 def VehicleMonitor(alert,t=0.2):
@@ -47,5 +48,5 @@ def VehicleMonitor(alert,t=0.2):
 		wait = t - (time.time() - zero)
 		if wait>0:
 			time.sleep(wait)
-	print("VehicleMonitor detected alert, terminating")
+	printASG("VehicleMonitor detected alert, terminating")
 	pass

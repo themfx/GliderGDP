@@ -8,6 +8,7 @@ from inflight_balance_calculation_v5 import inflight_stage,flight_balance
 from coord_WP_dist import WP_dist
 from ModernCoords import GetWPs
 from wind_consideration_v2 import Current_LD
+from MissionTracking import printASG
 
 """UAV/glider flight parameters"""
 from active_aircraft import m    # UAV/glider mass
@@ -33,7 +34,7 @@ def LoopMainRun(alert,t=3):
 		wait = t - (time.time()-start)
 		if wait>0:
 			time.sleep(wait)
-	print("LoopMainRun detected an alarm, terminating")
+	printASG("LoopMainRun detected an alarm, terminating")
 	pass
 
 def MainRun():

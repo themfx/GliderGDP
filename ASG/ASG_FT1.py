@@ -9,6 +9,7 @@ import ArtSoar
 import sys				# for exception handling
 import threading
 from droneapi.lib import VehicleMode
+from MissionTracking import printASG
 
 from ASG.inflight_run_script_v4 import LoopMainRun
 from ASG.ArduParam import ResetAll, SetParam
@@ -26,14 +27,14 @@ class SingleFunction(threading.Thread):
 		try:
 			self.function(self.kill)
 		except PanicMode.PanicPanic, msg:
-			print(msg)
+			printASG(msg)
 			ExcQ.put(sys.exc_info())
 			raise
 		except:
-			print("Unrecognised failure")
+			printASG("Unrecognised failure")
 			ExcQ.put(sys.exc_info())
 			raise
-		print("SingleFunction ID%d completed successfully" %self.ID)
+		printASG("SingleFunction ID%d completed successfully" %self.ID)
 		pass
 
 # Create queues to communicate exceptions between functions
@@ -83,14 +84,14 @@ def Run1():
 			time.sleep(0.1)
 
 	# Error detection
-	print("Issue detected:\n%s" %str(ExcQ.get()))
+	printASG("Issue detected:\n%s" %str(ExcQ.get()))
 
 	# Send message to kill everything
 	for k in Kill:
 		k.put(1)
 
 	if v.mode.name in ['MANUAL']:
-		print("Threads should be dead, pilot in control")
+		printASG("Threads should be dead, pilot in control")
 		# we don't need to enter panic mode, pilot will handle it
 		ResetAll()
 		pass
@@ -99,9 +100,9 @@ def Run1():
 	PanicMode.Enter()
 	# Ensure everything has stopped
 	for t in Threads:
-		print("Trying to kill: %s" %str(t.function))
+		printASG("Trying to kill: %s" %str(t.function))
 		t.join()
-	print("All killed, entering panic mode")
+	printASG("All killed, entering panic mode")
 	# Redo panic mode just in case
 	PanicMode.Enter()
 	pass

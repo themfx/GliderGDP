@@ -10,7 +10,7 @@ read message
 
 echo "Setting commit with this message:" $message
 git add -A
-git rm -r -f *.pyc
+git rm --cached -r *.pyc
 git commit -a -m $message
 
 echo "Pushing to master"

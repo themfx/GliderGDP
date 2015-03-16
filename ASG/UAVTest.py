@@ -2,62 +2,63 @@ from __main__ import v
 import PanicMode
 from ArduParam import * # Use FetchParam and ChangeParam
 from time import sleep
+from MissionTracking import printASG
 
 def F1():
 	# Create exception for entering panic mode
-	print(v)
+	printASG(v)
 	try:
-		print("Trying DisplayParams")
+		printASG("Trying DisplayParams")
 		DisplayParams()
-		print("DisplayParams complete\n\n")
+		printASG("DisplayParams complete\n\n")
 		sleep(5)
 
-		print("Trying EditParam")
+		printASG("Trying EditParam")
 		EditParam()
-		print("EditParam complete\n\n")
+		printASG("EditParam complete\n\n")
 		sleep(5)
 
-		print("Trying CheckThreads")
+		printASG("Trying CheckThreads")
 		CheckThreads()
-		print("CheckThreads complete\n\n")
+		printASG("CheckThreads complete\n\n")
 		sleep(5)
 
 	except PanicPanic, msg:
-		print("Entering panic mode due to:\n--- %s ---" %msg)
+		printASG("Entering panic mode due to:\n--- %s ---" %msg)
 		PanicMode.Enter()
 	# Also catch other exceptions
 	except:
-		print("Unexcpected error, entering panic mode and raising")
+		printASG("Unexcpected error, entering panic mode and raising")
 		PanicMode.Enter()
 		raise
 
-	print("Completed F1 okay, exiting")
+	printASG("Completed F1 okay, exiting")
 	sleep(2)
 
 	pass
 
 def DisplayParams():
-	print("Armed: %s" %v.armed)
-	print("Airspeed: %.2f" %v.airspeed)
+	printASG("Armed: %s" %v.armed)
+	printASG("Airspeed: %.2f" %v.airspeed)
 	loc = v.location
-	print("Altitude: %.2f" %loc.alt)
-	print("latitude,longitude: %.4f,%.4f" %(loc.lat,loc.lon))
+	printASG("Altitude: %.2f" %loc.alt)
+	printASG("latitude,longitude: %.4f,%.4f" %(loc.lat,loc.lon))
 	pass
 
 def EditParam():
 	THR_MAX_orig = FetchParam(['THR_MAX'])[0]
-	print("THR_MAX is currently: %.0f" %THR_MAX_orig)
+	printASG("THR_MAX is currently: %.0f" %THR_MAX_orig)
 	sleep(2)
-	print("Changing THR_MAX to 0")
+	printASG("Changing THR_MAX to 0")
 	SetParam(['THR_MAX'],[0])
 	sleep(2)
-	print("Done, THR_MAX is now read as: %.0f" %FetchParam(['THR_MAX'])[0])
+	printASG("Done, THR_MAX is now read as: %.0f" %FetchParam(['THR_MAX'])[0])
 
 	sleep(2)
-	print("Resetting THR_MAX")
+	printASG("Resetting THR_MAX")
 	SetParam(['THR_MAX'],[THR_MAX_orig])
 	sleep(2)
-	print("Reset, THR_MAX is now read as: %.0f" %FetchParam(['THR_MAX'])[0])
+	printASG("Reset, THR_MAX is now read as: %.0f" %FetchParam(['THR_MAX'])[0])
 	pass
 
 import threading
@@ -68,11 +69,11 @@ class SimpleThread(threading.Thread):
 		self.name = name
 		self.t = t
 	def run(self):
-		print("Running %s with interval %ds" %(self.name,self.t))
+		printASG("Running %s with interval %ds" %(self.name,self.t))
 		for i in range(10):
-			print("%s calling at %ds" %(self.name,self.t*i))
+			printASG("%s calling at %ds" %(self.name,self.t*i))
 			sleep(self.t)
-		print("%s now complete, exiting" %self.name)
+		printASG("%s now complete, exiting" %self.name)
 		pass
 
 def CheckThreads():
@@ -84,5 +85,5 @@ def CheckThreads():
 
 	for t in [t1,t2]:
 		t.join()
-	print("Both threads done, CheckThreads all done too")
+	printASG("Both threads done, CheckThreads all done too")
 	pass
