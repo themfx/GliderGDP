@@ -63,7 +63,7 @@ def Run1():
 	Threads.append(tSoar)
 
 	count = 2.0
-	while v.mode.name in ['LOITER','GUIDED']:
+	while v.mode.name in ['LOITER','GUIDED','FBWA']:
 		if count%2.0 < 0.2:
 			SetParam(['MODE','THR_MAX'],['AUTO',0])
 			count = 0.2
