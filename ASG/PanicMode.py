@@ -38,7 +38,7 @@ def Check(VL=Vmin,pL=15,pL_=-10,rL=30,vzL_=-20,aL=112,aL_=5): #correct PL_!!
 	for (name,cur,lim) in zip(AttNames,AttCurrent,AttLimit):
 		if cur>lim:
 			raise PanicPanic, "Outside operation: %s=%.2f" %(name,cur)
-	printASG("Panic check is all okay (%.0fm)" %RelativeAlt()) 	# may supress this
+	printASG("Panic check is all okay")
 	pass
 
 def VehicleMonitor(alert,t=0.2):

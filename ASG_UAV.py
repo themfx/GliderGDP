@@ -43,7 +43,7 @@ while retry>0:
 		retry -= 1
 		printASG("Failed in download of waypoints (%d attempts left)" %retry)
 		if retry==0:
-			raise
+			raise		# just give up here... :\
 		pass
 	else:
 		retry = 0

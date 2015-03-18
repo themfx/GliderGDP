@@ -43,6 +43,7 @@ def DisplayParams():
 	loc = v.location
 	printASG("Altitude: %.2f" %loc.alt)
 	printASG("latitude,longitude: %.4f,%.4f" %(loc.lat,loc.lon))
+	printASG("Relative alt: %.2f" %RelativeAlt())
 	pass
 
 def EditParam():
