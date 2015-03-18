@@ -11,6 +11,7 @@ from active_aircraft import * #!# aju - tidy
 import ASG.ArtSoar
 from __main__ import SoarQ
 from MissionTracking import printASG
+from ArduParam import RelativeAlt
 
 def inflight_stage(hA,hB,dAB,LD_ratio):
 
@@ -57,7 +58,7 @@ def flight_balance(z,d_WP,WP_target,N,h_route,d_route,LD_ratio):
     for i in range(N):
         if i+1 == WP_target and d_WP != 0:
             printASG("\n\nYou are at Stage %d: WP%d -> WP%d" %(i,i,i+1))
-            printASG("Distance to WP%d is %.3f m (@ alt=%.1fm)" %(i+1,d_WP,h_route[i+1]))
+            printASG("Distance to WP%d is %.3f m (alt=%.1f//%.1fm)" %(i+1,d_WP,RelativeAlt(),h_route[i+1]))
             inflight_stage(z,h_route[i+1],d_WP,LD_ratio)
         elif i+1 == WP_target and d_WP == 0 and WP_target+1 < N+1:
             printASG("You are at WP%d" %(WP_target))

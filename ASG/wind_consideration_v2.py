@@ -21,7 +21,7 @@ def Current_LD(V,Vw,Vs,A,B,C):
 
     grad = (Vv-Vs)/(V-Vw)               #gradient of line representing glide angle
 
-    LD_actual = 1/math.atan(-1.*grad)
+    LD_actual = -1./grad
 
     return LD_actual
 

@@ -21,23 +21,24 @@ def Wait(alert,tSoar=2,tHead=0.4):
 	while alert.empty():
 		start = time.time()
 		if not SoarQ.empty():
-			Soar = True
+			#Soar = True
 			altSoar = RelativeAlt() + SoarQ.get() #changed back to v.location.alt
 			if altSoar>alt:
 				alt = altSoar
-				if FetchParam(['MODE'])[0] != 'GUIDED':
+				if Soar != True:
+					Soar = True
 					SetParam(['THR_MAX'],[75])
 					lat = v.location.lat
 					lon = v.location.lon
 					v.commands.goto(Location(lat,lon,alt))
 				else:
 					v.commands.goto(Location(lat,lon,alt))
-		elif (Soar==True) and (FetchParam(['THR_MAX'])[0] != 0) and (RelativeAlt()>=alt):
+		elif (Soar==True) and (FetchParam(['THR_MAX'])[0] != 0):
 			t = tHead
 			NextWP_ = v.commands[v.commands.next]
 			NextWP = [NextWP_.x,NextWP_.y,NextWP_.z]
 			WPinLoiter = WP_dist([[lat,lon,alt],NextWP])[0][0] < 1.2*FetchParam(['WP_LOITER_RAD'])[0]
-			if InHeading() or WPinLoiter:
+			if (InHeading() or WPinLoiter) and (RelativeAlt()>=0.9*alt):
 				SetParam(['MODE','THR_MAX'],['AUTO',0])
 				alt = 0
 				t = tSoar

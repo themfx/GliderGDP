@@ -48,7 +48,7 @@ while retry>0:
 	else:
 		retry = 0
 	#raise
-printASG("Waypoint download complete, __main__.AltC set")
+printASG("Waypoint download complete, __main__.AltC set (%.1fm)" %__main__.AltC)
 
 # Import the relevant module
 from ASG import UAVTest
