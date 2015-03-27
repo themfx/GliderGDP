@@ -1,12 +1,16 @@
+# --- Andy Ure, au4g10 ---
+# Demo UAV test script
+
 from __main__ import v
 import PanicMode
-from ArduParam import * # Use FetchParam and ChangeParam
+from ArduParam import *
 from time import sleep
 from MissionTracking import printASG
 
 def F1():
-	# Create exception for entering panic mode
-	printASG(v)
+	"""
+	A test script for accessing vehicle attributes, changing
+	vehicle parameters and running multithreading operations."""
 	try:
 		printASG("Trying DisplayParams")
 		DisplayParams()
@@ -26,9 +30,8 @@ def F1():
 	except PanicPanic, msg:
 		printASG("Entering panic mode due to:\n--- %s ---" %msg)
 		PanicMode.Enter()
-	# Also catch other exceptions
-	except:
-		printASG("Unexcpected error, entering panic mode and raising")
+	except:		# Also catch other exceptions
+		printASG("Error: entering panic mode and raising")
 		PanicMode.Enter()
 		raise
 
@@ -53,13 +56,15 @@ def EditParam():
 	printASG("Changing THR_MAX to 0")
 	SetParam(['THR_MAX'],[0])
 	sleep(2)
-	printASG("Done, THR_MAX is now read as: %.0f" %FetchParam(['THR_MAX'])[0])
+	printASG("Done, THR_MAX is now read as: %.0f"
+				%FetchParam(['THR_MAX'])[0])
 
 	sleep(2)
 	printASG("Resetting THR_MAX")
 	SetParam(['THR_MAX'],[THR_MAX_orig])
 	sleep(2)
-	printASG("Reset, THR_MAX is now read as: %.0f" %FetchParam(['THR_MAX'])[0])
+	printASG("Reset, THR_MAX is now read as: %.0f"
+				%FetchParam(['THR_MAX'])[0])
 	pass
 
 import threading
@@ -70,7 +75,8 @@ class SimpleThread(threading.Thread):
 		self.name = name
 		self.t = t
 	def run(self):
-		printASG("Running %s with interval %ds" %(self.name,self.t))
+		printASG("Running %s with interval %ds"
+					%(self.name,self.t))
 		for i in range(10):
 			printASG("%s calling at %ds" %(self.name,self.t*i))
 			sleep(self.t)

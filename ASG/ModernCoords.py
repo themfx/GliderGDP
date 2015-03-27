@@ -1,4 +1,6 @@
+# --- Andy Ure, au4g10 ---
 # New code to get waypoint information on the ODROID
+
 from __main__ import v
 
 def GetWPs():

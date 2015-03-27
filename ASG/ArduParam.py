@@ -5,7 +5,7 @@ from MissionTracking import printASG
 
 def FetchParam(par):
 	"""
-	Take a list of parameters (par) and returns a corresponding
+	Takes a list of parameters (par) and returns a corresponding
 	list of values from the vehicle."""
 	v.flush() 		# just an extra one for luck
 	val = par[:]	# create list for values
@@ -23,7 +23,7 @@ def SetMode(mode):
 	Function returns nothing."""
 	v.mode = VehicleMode(mode)
 	
-	# Assumed that v.flush is run SetParam()
+	# Assumes that v.flush is run SetParam()
 	#v.flush()
 	pass
 

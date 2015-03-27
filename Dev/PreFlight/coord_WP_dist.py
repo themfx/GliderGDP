@@ -1,14 +1,8 @@
-# --- Wilhelm Munthe, wm4g10 ---
 from math import radians, cos, sin, asin, sqrt
-from MissionTracking import printASG
 
 def get_coords(filename):
-	"""
-	Reads an input file in a standard APM/Mission Planner 2.0
-	format and exports them as a list of waypoints in a
-	coordinate list with each element in format [latitude,
-	longitude, altitude]."""
-	coords=[]
+    """This function reads an input file in a standard APM/Mission Planner 2.0 format and exports them as a list of waypoints in a coordinate list with each element in format [latitude, longitude, altitude]."""
+    coords=[]
     
     f=open(filename) #reading file
     text=f.read()
